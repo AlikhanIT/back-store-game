@@ -4,9 +4,7 @@ const uuid = require("uuid");
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
-        if (!fs.existsSync('uploads')) {
-            fs.mkdir('uploads');
-        }
+        fs.mkdirSync('uploads', { recursive: true })
         cb(null, 'uploads');
     },
     filename: (_, file, cb) => {
