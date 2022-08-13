@@ -13,7 +13,7 @@ class UserController {
             const userData = await userService.registration(email, password);
 
             //flag secure true dont forget
-            res.cookie("refreshToken", userData.refreshToken, {maxAge: 14 * 24 * 60 * 60 * 1000, httpOnly: true})
+            res.cookie("refreshToken", userData.refreshToken, {maxAge: 14 * 24 * 60 * 60 * 1000, httpOnly: true});
             res.json(userData);
         } catch (err) {
             next(err);
@@ -28,7 +28,7 @@ class UserController {
             }
             const { email, password } = req.body;
             const userData = await userService.login(email, password);
-            res.cookie("refreshToken", userData.refreshToken, {maxAge: 14 * 24 * 60 * 60 * 1000, httpOnly: true})
+            res.cookie("refreshToken", userData.refreshToken, {maxAge: 14 * 24 * 60 * 60 * 1000, httpOnly: true});
             res.json(userData);
         } catch (err) {
             next(err);
@@ -60,6 +60,7 @@ class UserController {
     async refresh(req, res, next) {
         try {
             const {refreshToken} = req.cookies;
+            console.log(req.cookies)
             const userData = await userService.refresh(refreshToken);
             console.log(userData)
             res.cookie("refreshToken", userData.refreshToken, {maxAge: 14 * 24 * 60 * 60 * 1000, httpOnly: true})
