@@ -4,6 +4,7 @@
 /node_modules
 /uploads
 /.pnp
+/.env
 .pnp.js
 
 # testing

@@ -10,8 +10,8 @@ class PostController {
                 return next(ApiError.BadRequest("Ошибка при валидации", errors.array()))
             }
 
-            const {title, text, price, imageUrl } = req.body;
-            const userData = await postService.create(title, text, price, imageUrl, req.user.id);
+            const {title, text, price1, price2, price3, imageUrl } = req.body;
+            const userData = await postService.create(title, text, price1, price2, price3, imageUrl, req.user.id);
 
             res.json(userData);
         } catch (err) {

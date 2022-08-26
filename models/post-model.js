@@ -9,7 +9,15 @@ const PostModel = new Schema({
         type: String,
         required: true
     },
-    price: {
+    price1: {
+        type: Number,
+        required: true
+    },
+    price2: {
+        type: Number,
+        required: true
+    },
+    price3: {
         type: Number,
         required: true
     },

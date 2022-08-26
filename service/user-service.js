@@ -7,7 +7,7 @@ const UserDto = require("../dtos/user-dto.js");
 const ApiError = require("../exceptions/api-error.js");
 
 class UserService {
-    registration = async (email, password) => {
+    registration = async (email, password, imageUrl, name) => {
         const condidate = await UserModel.findOne({email});
         if (condidate) {
             throw ApiError.BadRequest(`Пользователь с такой почтой уже существует`);
@@ -19,6 +19,8 @@ class UserService {
         const user = await UserModel.create({
             email,
             password: hashPassword,
+            imageUrl,
+            name,
             activationLink
         })
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
@@ -31,6 +33,8 @@ class UserService {
         return {
             ...tokens,
             isAdmin: user.isAdmin,
+            imageUrl: user.imageUrl,
+            userId: user._id,
             user: UserDto
         };
     }
@@ -63,6 +67,8 @@ class UserService {
         return {
             ...tokens,
             isAdmin: user.isAdmin,
+            imageUrl: user.imageUrl,
+            userId: user._id,
             user: UserDto
         };
     }
@@ -94,6 +100,8 @@ class UserService {
         return {
             ...tokens,
             isAdmin: user.isAdmin,
+            imageUrl: user.imageUrl,
+            userId: user._id,
             user: UserDto
         };
     }

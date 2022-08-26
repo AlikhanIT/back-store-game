@@ -6,6 +6,10 @@ const UserModel = new Schema({
         unique: true,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
@@ -17,6 +21,10 @@ const UserModel = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    imageUrl: {
+        type: String,
+        required: true
     },
     activationLink: {
         type: String

@@ -3,7 +3,7 @@ const UserModel = require("../models/user-model.js");
 const ApiError = require("../exceptions/api-error.js");
 
 class PostService {
-    create = async (title, text, price, imageUrl, user) => {
+    create = async (title, text, price1, price2, price3, imageUrl, user) => {
         const userIsAdmin = await UserModel.findById(user);
         if (!userIsAdmin.isAdmin) {
             throw ApiError.BadRequest("Вы не администратор");
@@ -12,7 +12,9 @@ class PostService {
         const post = await PostModel.create({
             title,
             text,
-            price,
+            price1,
+            price2,
+            price3,
             imageUrl,
             user
         })
@@ -38,7 +40,7 @@ class PostService {
         return post;
     }
 
-    edit = async (id, title, text, price, imageUrl, userId) => {
+    edit = async (id, title, text, price1, price2, price3, imageUrl, userId) => {
         const post = await PostModel.findOne({_id: id});
         if (!post) {
             throw ApiError.BadRequest("Такого поста не существует");
@@ -59,6 +61,8 @@ class PostService {
             title,
             text,
             price,
+            price2,
+            price3,
             imageUrl,
         });
 
@@ -72,7 +76,7 @@ class PostService {
 
     getAllPosts = async (sort, asc, page, limit) => {
         if (sort === "price") {
-            const post = await PostModel.find().sort({price: asc}).skip((page - 1) * limit).limit(limit);
+            const post = await PostModel.find().sort({price3: asc}).skip((page - 1) * limit).limit(limit);
             return post;
         } else if (sort === "title") {
             const post = await PostModel.find().sort({title: asc}).skip((page - 1) * limit).limit(limit);
