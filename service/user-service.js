@@ -97,6 +97,14 @@ class UserService {
         const tokens = tokenService.generateTokens({...userDto});
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
+        console.log({
+            ...tokens,
+            isAdmin: user.isAdmin,
+            imageUrl: user.imageUrl,
+            userId: user._id,
+            user: UserDto
+        });
+
         return {
             ...tokens,
             isAdmin: user.isAdmin,
